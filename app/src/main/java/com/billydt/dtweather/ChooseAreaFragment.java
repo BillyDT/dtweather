@@ -3,6 +3,7 @@ package com.billydt.dtweather;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.billydt.dtweather.db.City;
 import com.billydt.dtweather.db.County;
 import com.billydt.dtweather.db.Province;
+import com.billydt.dtweather.gson.Weather;
 import com.billydt.dtweather.util.HttpUtil;
 import com.billydt.dtweather.util.Utility;
 import com.bumptech.glide.util.Util;
@@ -86,6 +88,12 @@ public class ChooseAreaFragment extends Fragment {
                 } else if (currentLevel == LEVEL_CITY) {
                     selectedCity = cityList.get(position);
                     queryCounties();
+                } else if (currentLevel == LEVEL_COUNTY) {
+                    String weatehrId = countyList.get(position).getWeatherId();
+                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id", weatehrId);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
